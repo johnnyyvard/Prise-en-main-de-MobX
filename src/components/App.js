@@ -1,7 +1,7 @@
 import React from 'react';
-import NavBar from './NavBar'
-import ToDoList from './ToDoList'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import NavBar from './NavBar';
+import ToDoList from './ToDoList';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import AddTask from './AddTask';
 import Devtools from 'mobx-react-devtools';
 // import initialData from '../initialData';
@@ -75,11 +75,8 @@ class App extends React.Component {
     //     console.log('Bonjour de getSnapshotBeforeUpdate')
     // }
 
-
-
     render() {
         // console.log('Bonjour de render')
-
         return (
             <section id="todo">
                 {/* {this.state.fetching? <Fetching /> : null} */}
