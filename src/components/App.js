@@ -3,59 +3,60 @@ import NavBar from './NavBar'
 import ToDoList from './ToDoList'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import AddTask from './AddTask';
-import initialData from '../initialData';
-import uniqueid from 'uniqueid'
-import Fetching from './Fetching'
+import Devtools from 'mobx-react-devtools';
+// import initialData from '../initialData';
+// import uniqueid from 'uniqueid'
+// import Fetching from './Fetching'
 
 class App extends React.Component {
 
-    state = {
-        tasks: [],
-        fetching: true
-    }
+    // state = {
+    //     tasks: [],
+    //     fetching: true
+    // }
 
-    componentDidMount = () => {
-        let delay = Math.floor(Math.random() * 5000)
+    // componentDidMount = () => {
+    //     let delay = Math.floor(Math.random() * 5000)
 
-        setTimeout(() => {
-            this.setState({
-                fetching: false,
-                tasks: initialData
-            })
-        } , delay)
-    }
+    //     setTimeout(() => {
+    //         this.setState({
+    //             fetching: false,
+    //             tasks: initialData
+    //         })
+    //     } , delay)
+    // }
 
-    onToggleCompleted = (taskId) => {
-        let taskToUpdate = this.state.tasks.find(task => task.id === taskId)
-        taskToUpdate.completed = !taskToUpdate.completed
+    // onToggleCompleted = (taskId) => {
+    //     let taskToUpdate = this.state.tasks.find(task => task.id === taskId)
+    //     taskToUpdate.completed = !taskToUpdate.completed
 
-        this.setState(prevState => (
-            prevState.tasks.map(task => {
-                return task.id === taskId ? taskToUpdate : task
-            })
-        ))
-    }
+    //     this.setState(prevState => (
+    //         prevState.tasks.map(task => {
+    //             return task.id === taskId ? taskToUpdate : task
+    //         })
+    //     ))
+    // }
 
-    onAddTask = (newTaskName) => {
-        let newTask = {
-            id: uniqueid(),
-            name: newTaskName,
-            completed: false
-        }
+    // onAddTask = (newTaskName) => {
+    //     let newTask = {
+    //         id: uniqueid(),
+    //         name: newTaskName,
+    //         completed: false
+    //     }
 
-        this.setState(prevState => ({
-            tasks: [...prevState.tasks, newTask]
-        }))
-    }
+    //     this.setState(prevState => ({
+    //         tasks: [...prevState.tasks, newTask]
+    //     }))
+    // }
 
-    onDeleteCompleted = () => {
-        this.setState(prevState => {
-            let newState = prevState.tasks.filter(task => !task.completed)
-            return {
-                tasks: newState
-            }
-        })
-    }
+    // onDeleteCompleted = () => {
+    //     this.setState(prevState => {
+    //         let newState = prevState.tasks.filter(task => !task.completed)
+    //         return {
+    //             tasks: newState
+    //         }
+    //     })
+    // }
 
     // shouldComponentUpdate = () => {
     //     console.log('Bonjour de shouldComponentUpdate')
@@ -81,14 +82,16 @@ class App extends React.Component {
 
         return (
             <section id="todo">
-                {this.state.fetching? <Fetching /> : null}
+                {/* {this.state.fetching? <Fetching /> : null} */}
+                <Devtools />
                 <BrowserRouter>
-                    <Switch>
-                        <Route path="/add-task" render={(props) => <AddTask {...props} onAddTask={this.onAddTask} />} />
-                        <Route path="/:filter?" render={(props) => <ToDoList {...props} tasks={this.state.tasks} onToggleCompleted={this.onToggleCompleted} />} />
-                    </Switch>
-                    <NavBar onDeleteCompleted={this.onDeleteCompleted} />
-
+                    <>
+                        <Switch>
+                            <Route path="/add-task" component={AddTask} />
+                            <Route path="/:filter?" component={ToDoList} />
+                        </Switch>
+                        <NavBar onDeleteCompleted={this.onDeleteCompleted} />
+                    </>
                 </BrowserRouter>
             </section>
         )
